@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>Links</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-app-bar app>
+                <v-toolbar-title>Linksammlung</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-switch class="mt-5" v-model="edit"></v-switch>
+                <v-btn icon @click="toggle_add">
+                    <v-icon>mdi-plus</v-icon>
+                </v-btn>
+                <!-- -->
+            </v-app-bar>
+            <v-content>
+                <v-progress-linear indeterminate :active="loading"></v-progress-linear>
+                <v-alert type="success" dismissible="true" :value="successSafe">Link erfolgreich gespeichert</v-alert>
+                <v-alert type="success" dismissible="true" :value="successDelete">Link erfolgreich gelöscht</v-alert>
+                <v-alert type="error" :value="errorLoading">Links konnten nicht vom Server abgerufen werden</v-alert>
+                <v-card v-show="add">
+                    <v-form>
+                        <v-row class="justify-center">
+                            <v-col>Neuen Link hinzufügen</v-col>
+                        </v-row>
+                        <v-row class="justify-center">
+                            <v-col cols="11" md="2">
+                                <v-text-field v-model="title" label="Titel" required></v-text-field>
+                            </v-col>
+
+                            <v-col cols="11" md="2">
+                                <v-text-field v-model="href" label="link" required></v-text-field>
+                            </v-col>
+
+                            <v-col cols="11" md="2">
+                                <v-text-field v-model="category" label="Kategorie"></v-text-field>
+                            </v-col>
+
+                            <v-col cols="11" md="2">
+                                <v-text-field v-model="desc" label="Beschreibung"></v-text-field>
+                            </v-col>
+
+                            <v-col cols="11" md="2">
+                                <v-text-field v-model="favicon" label="Favicon"></v-text-field>
+                            </v-col>
+
+                            <v-col cols="11" md="1">
+                                <v-btn class="mt-4" @click="sendData">Speichern</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-form>
+                </v-card>
+
+                <v-container fluid>
+                    <v-row dense>
+                        <v-col v-for="link in links" :key="link.title" cols="3">
+                            <v-card :href="edit ? '' : link.href" hover="true" target="_blank" :disabled="link.offline">
+                                <v-system-bar v-show="edit">
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon class="ma-2" @click="updateData(link)">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon class="ma-2" @click="deleteData(link.title)">
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                </v-system-bar>
+                                
+                                <v-row >
+                                    <v-col>
+                                        <v-card-title>{{link.title}}</v-card-title>
+                                        <v-card-subtitle>{{link.desc}}</v-card-subtitle>
+                                    </v-col>
+                                    <v-col>
+                                        <v-img :src="link.favicon" height="80" contain="true"></v-img>
+                                    </v-col>
+                                </v-row>
+                               
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+            </v-content>
+            <v-footer app>
+                <!-- -->
+                FWeidt
+                <v-spacer></v-spacer>
+                Aktuell gespeicherte Links: {{links.length}}
+                <v-spacer></v-spacer>
+                <div>&copy; {{ new Date().getFullYear() }}</div>
+            </v-footer>
+        </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
