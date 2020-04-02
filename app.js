@@ -7,12 +7,15 @@ var app = new Vue({
       }),
 
     data: {
+        apiUrl:"http://192.168.2.250:1880/api/",
+        apiEndpoint: "set",
         successSafe: false,
         successDelete: false,
         errorLoading: false,
         loading: true,
         edit: false,
         add: false,
+        updateEvent: false,
         title: '',
         href: '',
         desc: '',
@@ -25,6 +28,13 @@ var app = new Vue({
     },
     methods: {
         toggle_add: function () {
+            this.title = ''
+            this.href = ''
+            this.desc = ''
+            this.favicon = ''
+            this.category = ''
+            this.updateEvent = false
+            
             if (this.add) {
                 this.add = false
             } else {
@@ -32,7 +42,14 @@ var app = new Vue({
             }
         },
         sendData: function () {
-            axios.post('http://192.168.2.250:1880/api/set', {
+            if(this.updateEvent){
+                this.apiEndpoint="update"
+            }
+            else{
+                this.apiEndpoint="set"
+            }
+
+            axios.post(`${this.apiUrl}${this.apiEndpoint}`, {
                 "title": this.title,
                 "href": this.href,
                 "category": this.category,
@@ -47,6 +64,7 @@ var app = new Vue({
                     this.successSafe = true
                 })
             this.add = false
+            this.updateEvent = false
             this.title = ''
             this.href = ''
             this.desc = ''
@@ -56,7 +74,7 @@ var app = new Vue({
         },
         getData: function () {
             this.loading = true
-            axios.get("http://192.168.2.250:1880/api/get")
+            axios.get(`${this.apiUrl}get`)
                 .then(response => {
                     this.links = response.data
                 })
@@ -69,7 +87,7 @@ var app = new Vue({
                 })
         },
         deleteData: function (id) {
-            axios.delete('http://192.168.2.250:1880/api/del', {
+            axios.delete(`${this.apiUrl}del`, {
                 data: id
             })
                 .catch(() => {
@@ -80,8 +98,15 @@ var app = new Vue({
                     this.successDelete = true
                 })
         },
-        updateData: function (item) {
-            
+        preloadData: function (link) {
+            this.add = true
+            this.updateEvent = true
+            this.title = link.title
+            this.href = link.href
+            this.desc = link.desc
+            this.favicon = link.favicon
+            this.category = link.category
+
         },
     },
     mounted() {

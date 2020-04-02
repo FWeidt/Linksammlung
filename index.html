@@ -35,7 +35,7 @@
                         </v-row>
                         <v-row class="justify-center">
                             <v-col cols="11" md="2">
-                                <v-text-field v-model="title" label="Titel" required></v-text-field>
+                                <v-text-field v-model="title" label="Titel" :disabled="updateEvent" required></v-text-field>
                             </v-col>
 
                             <v-col cols="11" md="2">
@@ -67,7 +67,7 @@
                             <v-card :href="edit ? '' : link.href" hover="true" target="_blank" :disabled="link.offline">
                                 <v-system-bar v-show="edit">
                                     <v-spacer></v-spacer>
-                                    <v-btn icon class="ma-2" @click="updateData(link)">
+                                    <v-btn icon class="ma-2" @click="preloadData(link)">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn icon class="ma-2" @click="deleteData(link.title)">
