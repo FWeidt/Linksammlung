@@ -24,7 +24,7 @@ var app = new Vue({
         links: []
     },
     computed: {
-
+        
     },
     methods: {
         toggle_add: function () {
@@ -83,7 +83,6 @@ var app = new Vue({
                 })
                 .finally(() => {
                     this.loading = false
-                    console.log(this.links)
                 })
         },
         deleteData: function (id) {

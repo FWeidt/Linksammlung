@@ -63,7 +63,7 @@
 
                 <v-container fluid>
                     <v-row dense>
-                        <v-col v-for="link in links" :key="link.title" cols="3">
+                        <v-col v-for="link in links" :key="link.title" cols="12" md="4">
                             <v-card :href="edit ? '' : link.href" hover="true" target="_blank" :disabled="link.offline">
                                 <v-system-bar v-show="edit">
                                     <v-spacer></v-spacer>
