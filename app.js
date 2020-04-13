@@ -21,10 +21,19 @@ var app = new Vue({
         desc: '',
         category: '',
         favicon: '',
-        links: []
+        links: [],
+        filteredLinks: []
     },
     computed: {
-        
+        categories: function(){
+            var c = []
+            this.links.forEach((item)=>{
+            if(!c.includes(item.category) && item.category != "")
+                c.push(item.category)
+           })
+           return c
+        }
+     
     },
     methods: {
         toggle_add: function () {
@@ -83,6 +92,7 @@ var app = new Vue({
                 })
                 .finally(() => {
                     this.loading = false
+                    this.showAll()
                 })
         },
         deleteData: function (id) {
@@ -107,6 +117,15 @@ var app = new Vue({
             this.category = link.category
 
         },
+        filterLinks: function(c){
+            this.filteredLinks = this.links.filter((value)=>{
+                console.log(c)
+                return value.category == c                
+            })
+        },
+        showAll: function(){
+            this.filteredLinks = this.links
+        }
     },
     mounted() {
         this.getData()

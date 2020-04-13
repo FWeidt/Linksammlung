@@ -60,10 +60,13 @@
                         </v-row>
                     </v-form>
                 </v-card>
-
+              <v-tabs background-color="primary" centered="true">
+                  <v-tab @click="showAll()">Alle</v-tab>
+                  <v-tab v-for="item in categories" @click="filterLinks(item)">{{item}}</v-tab>
+              </v-tabs>
                 <v-container fluid>
                     <v-row dense>
-                        <v-col v-for="link in links" :key="link.title" cols="12" md="4">
+                        <v-col v-for="link in filteredLinks" :key="link.title" cols="12" md="4">
                             <v-card :href="edit ? '' : link.href" hover="true" target="_blank" :disabled="link.offline">
                                 <v-system-bar v-show="edit">
                                     <v-spacer></v-spacer>
@@ -101,7 +104,7 @@
             </v-footer>
         </v-app>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="app.js"></script>
