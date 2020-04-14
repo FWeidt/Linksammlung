@@ -5,7 +5,6 @@
 - hinzufügen neuer Links aus der Webseite heraus
 - keine Authorisierung nötig
 - Kategorien
-- Webseiten Vorschau
 
 ## Datenmodel
 
@@ -16,7 +15,7 @@
     "category": "[String]",     //Kategorie
     "desc": "[String]",         //Beschreibung
     "favicon": "[String]",      //Link zum Favicon
-    "online": "[Boolean]"       //
+    "online": "[Boolean]"       //wird vom Server ausgefüllt
 }
 ```
 

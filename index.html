@@ -60,7 +60,7 @@
                         </v-row>
                     </v-form>
                 </v-card>
-              <v-tabs background-color="primary" centered="true">
+              <v-tabs centered="true">
                   <v-tab @click="showAll()">Alle</v-tab>
                   <v-tab v-for="item in categories" @click="filterLinks(item)">{{item}}</v-tab>
               </v-tabs>
@@ -74,7 +74,7 @@
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn icon class="ma-2" @click="deleteData(link.title)">
-                                        <v-icon>mdi-close</v-icon>
+                                        <v-icon>mdi-delete</v-icon>
                                     </v-btn>
                                 </v-system-bar>
                                 
