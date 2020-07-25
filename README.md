@@ -1,5 +1,7 @@
 # Linksammlung
 
+Eine kleines Dashboard das heufig benötigte Links grafisch darstellt
+
 ## Was soll sie können:
 
 - hinzufügen neuer Links aus der Webseite heraus
