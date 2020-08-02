@@ -34,20 +34,11 @@ var app = new Vue({
            })
            return c
         },
-        create_UUID: function(){
-            let dt = new Date().getTime();
-            let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                let r = (dt + Math.random()*16)%16 | 0;
-                dt = Math.floor(dt/16);
-                return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-            });
-            return uuid;
-        }
-     
+            
     },
     methods: {
         toggle_add: function () {
-            this.uuid =  this.create_UUID
+            this.uuid =  this.create_UUID()
             this.title = ''
             this.href = ''
             this.desc = ''
@@ -140,6 +131,15 @@ var app = new Vue({
         },
         showAll: function(){
             this.filteredLinks = this.links
+        },
+        create_UUID: function(){
+            let dt = new Date().getTime()
+            let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                let r = (dt + Math.random()*16)%16 | 0
+                dt = Math.floor(dt/16)
+                return (c=='x' ? r :(r&0x3|0x8)).toString(16)
+            })
+            return uuid
         }
     },
     mounted() {
@@ -147,7 +147,7 @@ var app = new Vue({
 
     },
     updated() {
-
+        
     },
     watch: {
         successSafe: function () {
