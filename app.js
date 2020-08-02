@@ -119,7 +119,7 @@ var app = new Vue({
         },
         filterLinks: function(c){
             this.filteredLinks = this.links.filter((value)=>{
-                console.log(c)
+
                 return value.category == c                
             })
         },
