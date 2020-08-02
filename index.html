@@ -28,38 +28,48 @@
                 <v-alert type="success" dismissible="true" :value="successSafe">Link erfolgreich gespeichert</v-alert>
                 <v-alert type="success" dismissible="true" :value="successDelete">Link erfolgreich gelöscht</v-alert>
                 <v-alert type="error" :value="errorLoading">Links konnten nicht vom Server abgerufen werden</v-alert>
-                <v-card v-show="add">
-                    <v-form>
-                        <v-row class="justify-center">
-                            <v-col>Neuen Link hinzufügen</v-col>
-                        </v-row>
-                        <v-row class="justify-center">
-                            <v-col cols="11" md="2">
-                                <v-text-field v-model="title" label="Titel" :disabled="updateEvent" required></v-text-field>
-                            </v-col>
-
-                            <v-col cols="11" md="2">
-                                <v-text-field v-model="href" label="link" required></v-text-field>
-                            </v-col>
-
-                            <v-col cols="11" md="2">
-                                <v-text-field v-model="category" label="Kategorie"></v-text-field>
-                            </v-col>
-
-                            <v-col cols="11" md="2">
-                                <v-text-field v-model="desc" label="Beschreibung"></v-text-field>
-                            </v-col>
-
-                            <v-col cols="11" md="2">
-                                <v-text-field v-model="favicon" label="Favicon"></v-text-field>
-                            </v-col>
-
-                            <v-col cols="11" md="1">
-                                <v-btn class="mt-4" @click="sendData">Speichern</v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-form>
-                </v-card>
+                <v-dialog v-model="add" max-width="600">
+                    <v-card>
+                        <v-card-title>Neuen Link hinzufügen oder bearbeiten</v-card-title>
+                        <v-form>
+                            <v-row class="justify-center">
+                                <v-col cols="9" sm="6">
+                                    <v-text-field v-model="title" label="Titel" :disabled="updateEvent" required>
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row class="justify-center">
+                                <v-col cols="9" sm="6">
+                                    <v-text-field v-model="href" label="link" required></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row class="justify-center">
+                                <v-col cols="9" sm="6">
+                                    <v-combobox
+                                    v-model="category"
+                                    :items="categories"
+                                    label="Kategorien"
+                                    ></v-combobox>
+                                </v-col>
+                            </v-row>
+                            <v-row class="justify-center">
+                                <v-col cols="9" sm="6">
+                                    <v-text-field v-model="desc" label="Beschreibung"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row class="justify-center">
+                                <v-col cols="9" sm="6">
+                                    <v-text-field v-model="favicon" label="Favicon"></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row class="justify-center">
+                                <v-col cols="9" sm="6">
+                                    <v-btn class="mt-4" @click="sendData">Speichern</v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-form>
+                    </v-card>
+                </v-dialog>
               <v-tabs centered="true">
                   <v-tab @click="showAll()">Alle</v-tab>
                   <v-tab v-for="item in categories" @click="filterLinks(item)">{{item}}</v-tab>
