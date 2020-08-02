@@ -16,6 +16,7 @@ var app = new Vue({
         edit: false,
         add: false,
         updateEvent: false,
+        uuid: '',
         title: '',
         href: '',
         desc: '',
@@ -32,11 +33,21 @@ var app = new Vue({
                 c.push(item.category)
            })
            return c
+        },
+        create_UUID: function(){
+            let dt = new Date().getTime();
+            let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                let r = (dt + Math.random()*16)%16 | 0;
+                dt = Math.floor(dt/16);
+                return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+            });
+            return uuid;
         }
      
     },
     methods: {
         toggle_add: function () {
+            this.uuid =  this.create_UUID
             this.title = ''
             this.href = ''
             this.desc = ''
@@ -53,12 +64,14 @@ var app = new Vue({
         sendData: function () {
             if(this.updateEvent){
                 this.apiEndpoint="update"
+
             }
             else{
                 this.apiEndpoint="set"
             }
 
             axios.post(`${this.apiUrl}${this.apiEndpoint}`, {
+                "uuid": this.uuid,
                 "title": this.title,
                 "href": this.href,
                 "category": this.category,
@@ -74,6 +87,7 @@ var app = new Vue({
                 })
             this.add = false
             this.updateEvent = false
+            this.uuid = ''
             this.title = ''
             this.href = ''
             this.desc = ''
@@ -110,6 +124,7 @@ var app = new Vue({
         preloadData: function (link) {
             this.add = true
             this.updateEvent = true
+            this.uuid = link.uuid
             this.title = link.title
             this.href = link.href
             this.desc = link.desc
