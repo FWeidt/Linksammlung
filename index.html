@@ -23,10 +23,10 @@
                 </v-btn>
                 <!-- -->
             </v-app-bar>
-            <v-content>
+            <v-main>
                 <v-progress-linear indeterminate :active="loading"></v-progress-linear>
-                <v-alert type="success" dismissible="true" :value="successSafe">Link erfolgreich gespeichert</v-alert>
-                <v-alert type="success" dismissible="true" :value="successDelete">Link erfolgreich gelöscht</v-alert>
+                <v-alert type="success" :dismissible="true" :value="successSafe">Link erfolgreich gespeichert</v-alert>
+                <v-alert type="success" :dismissible="true" :value="successDelete">Link erfolgreich gelöscht</v-alert>
                 <v-alert type="error" :value="errorLoading">Links konnten nicht vom Server abgerufen werden</v-alert>
                 <v-dialog v-model="add" max-width="600">
                     <v-card>
@@ -76,14 +76,14 @@
                         </v-form>
                     </v-card>
                 </v-dialog>
-              <v-tabs centered="true">
+              <v-tabs :centered="true">
                   <v-tab @click="showAll()">Alle</v-tab>
-                  <v-tab v-for="item in categories" @click="filterLinks(item)">{{item}}</v-tab>
+                  <v-tab v-for="item in categories" :key="item" @click="filterLinks(item)">{{item}}</v-tab>
               </v-tabs>
                 <v-container fluid>
                     <v-row dense>
                         <v-col v-for="link in filteredLinks" :key="link.uuid" cols="12" md="4">
-                            <v-card :href="edit ? '' : link.href" hover="true" target="_blank" :disabled="link.offline">
+                            <v-card :href="edit ? '' : link.href" :hover="true" target="_blank" :disabled="link.offline">
                                 <v-system-bar v-show="edit">
                                     <v-spacer></v-spacer>
                                     <v-btn icon class="ma-2" @click="preloadData(link)">
@@ -100,14 +100,14 @@
                                         <v-card-subtitle>{{link.desc}}</v-card-subtitle>
                                     </v-col>
                                     <v-col>
-                                        <v-img :src="link.favicon" height="80" contain="true"></v-img>
+                                        <v-img :src="link.favicon" height="80" :contain="true"></v-img>
                                     </v-col>
                                 </v-row>
                                
                             </v-card>
                         </v-col>
                     </v-row>
-                </v-container>
+                </v-main>
 
             </v-content>
             <v-footer app>
