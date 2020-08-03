@@ -14,13 +14,10 @@
 <body>
     <div id="app">
         <v-app>
-            <v-app-bar app>
+            <v-app-bar dense app>
                 <v-toolbar-title>Linksammlung</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-switch class="mt-5" v-model="edit"></v-switch>
-                <v-btn icon @click="toggle_add">
-                    <v-icon>mdi-plus</v-icon>
-                </v-btn>
                 <!-- -->
             </v-app-bar>
             <v-main>
@@ -75,6 +72,15 @@
                   <v-tab v-for="item in categories" :key="item" @click="filterLinks(item)">{{item}}</v-tab>
               </v-tabs>
                 <v-container fluid>
+                    <v-row v-if="edit" class="justify-center">
+                        <v-col cols="12" md="4"></v-col>
+                        <v-col cols="12" md="4">
+                            <v-btn color="success" x-large @click="toggle_add">
+                                Eintrag hinzufügen
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="12" md="4"></v-col>
+                    </v-row>
                     <v-row dense>
                         <v-col v-for="link in filteredLinks" :key="link.uuid" cols="12" md="4">
                             <v-card :href="edit ? '' : link.href" :hover="true" target="_blank" :disabled="link.offline">
@@ -101,9 +107,9 @@
                             </v-card>
                         </v-col>
                     </v-row>
-                </v-main>
+                </v-container>
 
-            </v-content>
+            </v-main>
             <v-footer app>
                 <!-- -->
                 FWeidt
