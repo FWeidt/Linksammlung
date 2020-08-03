@@ -17,7 +17,11 @@
             <v-app-bar app>
                 <v-toolbar-title>Linksammlung</v-toolbar-title>
                 <v-spacer></v-spacer>
-               
+                <v-autocomplete
+                v-model="searchModel"
+                :items="titles"
+                label="Auswahl"
+              ></v-autocomplete>
                 <v-spacer></v-spacer>
                 <v-switch class="mt-5" v-model="edit"></v-switch>
                 <v-btn icon @click="toggle_add">

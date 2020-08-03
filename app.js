@@ -23,7 +23,8 @@ var app = new Vue({
         category: '',
         favicon: '',
         links: [],
-        filteredLinks: []
+        filteredLinks: [],
+        searchModel:[]
     },
     computed: {
         categories: function(){
@@ -31,6 +32,13 @@ var app = new Vue({
             this.links.forEach((item)=>{
             if(!c.includes(item.category) && item.category != "")
                 c.push(item.category)
+           })
+           return c
+        },
+        titles: function(){
+            var c = []
+            this.links.forEach((item)=>{
+                c.push(item.title)
            })
            return c
         }
@@ -165,6 +173,6 @@ var app = new Vue({
                 this.errorLoading = false
                 this.getData()
             }, 5000)
-        },
+        }
     }
 })
