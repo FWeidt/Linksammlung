@@ -10,9 +10,10 @@ Eine kleines Dashboard das heufig benötigte Links grafisch darstellt
 
 ## Datenmodel
 
-```json
+```
 {
     "title": "[String]",        //Titel
+    "uuid": "[String]",         //UUID
     "href": "[String]",         //Der eigentliche link 
     "category": "[String]",     //Kategorie
     "desc": "[String]",         //Beschreibung
