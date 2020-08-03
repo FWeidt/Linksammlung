@@ -173,6 +173,12 @@ var app = new Vue({
                 this.errorLoading = false
                 this.getData()
             }, 5000)
+        },
+        searchModel: function(){
+            
+            this.filteredLinks = this.links.filter((value)=>{
+                return this.searchModel.includes(value.title)
+            })
         }
     }
 })

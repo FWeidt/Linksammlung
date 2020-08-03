@@ -14,13 +14,20 @@
 <body>
     <div id="app">
         <v-app>
-            <v-app-bar app>
+            <v-app-bar height="80" flat app>
                 <v-toolbar-title>Linksammlung</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-autocomplete
                 v-model="searchModel"
                 :items="titles"
                 label="Auswahl"
+                chips
+                deletable-chips
+                open-on-clear
+                clearable
+                counter
+                multiple
+                dense
               ></v-autocomplete>
                 <v-spacer></v-spacer>
                 <v-switch class="mt-5" v-model="edit"></v-switch>
@@ -107,9 +114,8 @@
                             </v-card>
                         </v-col>
                     </v-row>
-                </v-main>
-
-            </v-content>
+                </v-container>
+            </v-main>
             <v-footer app>
                 <!-- -->
                 FWeidt
