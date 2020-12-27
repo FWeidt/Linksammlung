@@ -9,7 +9,9 @@ app.use(express.json({ limit: '1mb' }));
 const database = new Datastore('database.db');
 database.loadDatabase();
 
-app.get('/api', (request, response) => {
+const path = '/api';
+
+app.get(path, (request, response) => {
   database.find({}, (err, data) => {
     if (err) {
       response.end();
@@ -19,10 +21,20 @@ app.get('/api', (request, response) => {
   });
 });
 
-app.post('/api', (request, response) => {
+app.post(path, (request, response) => {
   const data = request.body;
-  const timestamp = Date.now();
-  data.timestamp = timestamp;
   database.insert(data);
+  response.json(data);
+});
+
+app.patch(path, (request, response) => {
+  const data = request.body;
+  database.update({"_id":data._id}, data, {});
+  response.json(data);
+  });
+
+app.delete(path, (request, response) => {
+  const data = request.body;
+  database.remove(data);
   response.json(data);
 });

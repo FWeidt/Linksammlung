@@ -21,3 +21,6 @@
 {"_id":"5f319c3c70dcb2001123e76b","uuid":"e8f74e36-10ac-45be-8af0-b249c2ee335f","title":"Sofa","href":"http://192.168.16.30","category":"Uffni","desc":"Beleuchtung","favicon":""}
 {"_id":"5f9f1d3d6ffc930010f38da4","uuid":"37bd9867-0698-4a15-978e-caf8259f265f","title":"Minio","href":"http://192.168.2.250:9002/minio/","category":"Infrastruktur","desc":"Cloud Speicher","favicon":"http://192.168.2.250:9002/minio/favicon-32x32.png"}
 {"_id":"5fcbfc23d3bbed0010ec9e69","uuid":"8c944f0c-4213-4187-b5a4-3baf2999d5c1","title":"Pollin","href":"http://pollin.de","category":"Onlineshop","desc":"Pollin Onlineshop","favicon":"https://www.pollin.de/media/unknown/d9/0c/f4/favicon.ico"}
+{"title":"Switch_irgendwas","href":"http://192.168.2.2","category":"Infrastruktur","desc":"Werkstatt","favicon":"https://192.168.2.2/media/global/favicon.png","_id":"SWV6fUz7gXFiPMdS"}
+{"_id":"SWV6fUz7gXFiPMdS","title":"Switch_ias","href":"test","category":"Infrastruktur","desc":"Werkstatt","favicon":"dfdb"}
+{"_id":"SWV6fUz7gXFiPMdS","title":"Switcasdasdasdmvcö<mcöl<m","href":"test","category":"Infrastruktur","desc":"Werkstatt","favicon":"dfdb"}
