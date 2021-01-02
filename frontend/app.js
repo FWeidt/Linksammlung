@@ -7,8 +7,7 @@ var app = new Vue({
       }),
 
     data: {
-        apiUrl:"http://192.168.16.24:3000/api/",
-        apiEndpoint: "set",
+        apiUrl:"http://192.168.2.250:3001/api",
         successSafe: false,
         successDelete: false,
         errorLoading: false,
@@ -16,7 +15,6 @@ var app = new Vue({
         edit: false,
         add: false,
         updateEvent: false,
-        uuid: '',
         title: '',
         href: '',
         desc: '',
@@ -37,14 +35,16 @@ var app = new Vue({
             
     },
     methods: {
-        toggle_add: function () {
+        clearData: function() {
             this.title = ''
             this.href = ''
             this.desc = ''
             this.favicon = ''
             this.category = ''
+        },
+        toggle_add: function () {
+            this.clearData()
             this.updateEvent = false
-            
             if (this.add) {
                 this.add = false
             } else {
@@ -53,39 +53,45 @@ var app = new Vue({
         },
         sendData: function () {
             if(this.updateEvent){
-                this.apiEndpoint="update"
-
-            }
-            else{
-                this.apiEndpoint="set"
-            }
-
-            axios.post(`${this.apiUrl}${this.apiEndpoint}`, {
-                "title": this.title,
-                "href": this.href,
-                "category": this.category,
-                "desc": this.desc,
-                "favicon": this.favicon
-            })
-                .catch(() => {
-                    this.errorLoading = true
+                axios.patch(this.apiUrl, {
+                    "_id": this._id,
+                    "title": this.title,
+                    "href": this.href,
+                    "category": this.category,
+                    "desc": this.desc,
+                    "favicon": this.favicon
                 })
-                .finally(() => {
-                    this.getData()
-                    this.successSafe = true
+                    .catch(() => {
+                        this.errorLoading = true
+                    })
+                    .finally(() => {
+                        this.getData()
+                        this.successSafe = true
+                    })
+            }
+            else {
+                axios.post(this.apiUrl, {
+                    "title": this.title,
+                    "href": this.href,
+                    "category": this.category,
+                    "desc": this.desc,
+                    "favicon": this.favicon
                 })
+                    .catch(() => {
+                        this.errorLoading = true
+                    })
+                    .finally(() => {
+                        this.getData()
+                        this.successSafe = true
+                    })
+            }
             this.add = false
             this.updateEvent = false
-            this.title = ''
-            this.href = ''
-            this.desc = ''
-            this.favicon = ''
-            this.category = ''
-
+            this.clearData()
         },
         getData: function () {
             this.loading = true
-            axios.get(`${this.apiUrl}get`)
+            axios.get(this.apiUrl)
                 .then(response => {
                     this.links = response.data
                 })
@@ -97,9 +103,9 @@ var app = new Vue({
                     this.showAll()
                 })
         },
-        deleteData: function (id) {
-            axios.delete(`${this.apiUrl}del`, {
-                data: id
+        deleteData: function (link) {
+            axios.delete(this.apiUrl, {
+                data: {"_id":link._id}
             })
                 .catch(() => {
                     this.errorLoading = true
@@ -118,7 +124,6 @@ var app = new Vue({
             this.desc = link.desc
             this.favicon = link.favicon
             this.category = link.category
-
         },
         filterLinks: function(c){
             this.filteredLinks = this.links.filter((value)=>{
