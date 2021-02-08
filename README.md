@@ -1,6 +1,6 @@
 # Linksammlung
 
-Eine kleines Dashboard das heufig benötigte Links grafisch darstellt
+Eine kleines Dashboard das häufig benötigte Links grafisch darstellt
 
 ## Was soll sie können:
 
@@ -10,10 +10,9 @@ Eine kleines Dashboard das heufig benötigte Links grafisch darstellt
 
 ## Datenmodel
 
-```
+```json
 {
     "title": "[String]",        //Titel
-    "uuid": "[String]",         //UUID
     "href": "[String]",         //Der eigentliche link 
     "category": "[String]",     //Kategorie
     "desc": "[String]",         //Beschreibung
@@ -24,5 +23,5 @@ Eine kleines Dashboard das heufig benötigte Links grafisch darstellt
 
 ## Backend
 
-Nodered mit mongodb
+Nodejs mit Nedb
 

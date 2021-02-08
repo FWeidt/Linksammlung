@@ -1,4 +1,4 @@
-{"_id":"5e7d11afb312bc0017812630","title":"Heizung","href":"http://192.168.2.251:1880","category":"Steuerung","desc":"Heizungssteuerung","favicon":"http://192.168.2.251:1880/favicon.ico","offline":false}
+{"_id":"5e7d11afb312bc0017812630","title":"Heizung","href":"http://192.168.2.251:1880","category":"Steuerung","desc":"Heizungssteuerung","favicon":"http://192.168.2.251:1880/favicon.ico"}
 {"_id":"5e7d2350b312bc0017812631","title":"Zähler","href":"http://192.168.2.40","category":"Visu","desc":"Stromzähler in der HV","favicon":"http://192.168.2.40/images/favicon.png","offline":false}
 {"_id":"5e7d29e7b312bc0017812633","title":"Nextcloud","href":"https://4nirc3hezgnj3uz4.myfritz.net","category":"Infrastruktur","desc":"Cloudspeicher","favicon":"https://4nirc3hezgnj3uz4.myfritz.net/core/img/favicon.ico","offline":false}
 {"_id":"5e810bd96cc77900102ea0e6","title":"Portainer","href":"http://192.168.2.250:9000","category":"Infrastruktur","desc":"Docker UI","favicon":"http://192.168.2.250:9000/5ba13dcb526292ae707310a54e103cd1.png","offline":false}
@@ -18,8 +18,22 @@
 {"_id":"5f26af7170dcb2001123e762","title":"Lightningmaps","href":"https://map.blitzortung.org/?y#10.03/49.5767/10.1894","category":"Interessantes","desc":"Blitze online","favicon":"https://map.blitzortung.org/Icons/favicon.ico"}
 {"_id":"5f2818e870dcb2001123e769","title":"Switch","href":"http://192.168.2.2","category":"Infrastruktur","desc":"Werkstatt","favicon":"https://192.168.2.2/media/global/favicon.png"}
 {"_id":"5f2d167e70dcb2001123e76a","title":"AllAboutCircuits","href":"https://www.allaboutcircuits.com/","category":"Interessantes","desc":"","favicon":"https://www.allaboutcircuits.com/images/favicon.ico"}
-{"_id":"5f319c3c70dcb2001123e76b","title":"Sofa","href":"http://192.168.16.30","category":"Uffni","desc":"Beleuchtung","favicon":""}
 {"_id":"5f9f1d3d6ffc930010f38da4","title":"Minio","href":"http://192.168.2.250:9002/minio/","category":"Infrastruktur","desc":"Cloud Speicher","favicon":"http://192.168.2.250:9002/minio/favicon-32x32.png"}
 {"_id":"5fcbfc23d3bbed0010ec9e69","title":"Pollin","href":"http://pollin.de","category":"Onlineshop","desc":"Pollin Onlineshop","favicon":"https://www.pollin.de/media/unknown/d9/0c/f4/favicon.ico"}
-
-
+{"_id":"iXf11JZouRS5CuPt","title":"DLF","href":"https://srv.deutschlandradio.de/themes/dradio/script/aod/index.html?audioMode=2&audioID=4&state=","category":"Radio","desc":"Webradio","favicon":"https://www.deutschlandfunk.de/favicon.ico"}
+{"title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app","_id":"UBLA1eaup1zVbEEV"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app/faficon.icoo"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"title":"3D Drucker","href":"http://192.168.16.28","category":"Infrastruktur","desc":"...","favicon":"","_id":"tqmM7EFTl8eQxq0L"}
+{"title":"Thingiverse","href":"https://www.thingiverse.com/","category":"Interessantes","desc":"3d Druck Vorlagen","favicon":"https://cdn.thingiverse.com/site/img/favicons/favicon-32x32.png","_id":"61IetY6uCwugtRih"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"title":"test","href":"askjdaskjdhk","category":"test","desc":"ASDASDA","favicon":"SADFSDFASDFASDF","_id":"4VSI3t7sVQZuYekT"}
+{"_id":"4VSI3t7sVQZuYekT","title":"test","href":"askjdaskjdhk","category":"Steuerung","desc":"ASDASDA","favicon":"SADFSDFASDFASDF"}
+{"_id":"4VSI3t7sVQZuYekT","title":"test","href":"askjdaskjdhk","category":"Steuerung","desc":"ASDASDA","favicon":"SADFSDFASDFASDF"}
+{"$$deleted":true,"_id":"4VSI3t7sVQZuYekT"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebungen","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebung","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebungen","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
+{"_id":"UBLA1eaup1zVbEEV","title":"Wasserwerk","href":"http://192.168.2.250/app","category":"Infrastruktur","desc":"Testumgebungen","favicon":"http://192.168.2.250/app/img/icons/favicon-32x32.png"}
