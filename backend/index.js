@@ -37,17 +37,17 @@ app.get(path, (request, response) => {
 app.post(path, (request, response) => {
   const data = request.body;
   database.insert(data);
-  response.json(data);
+  response.status(200).json({});
 });
 
 app.patch(path, (request, response) => {
   const data = request.body;
   database.update({"_id":data._id}, data, {});
-  response.json(data);
+  response.status(200).json({});
   });
 
 app.delete(path, (request, response) => {
   const data = request.body;
   database.remove(data);
-  response.json(data);
+  response.status(200).json({});
 });
