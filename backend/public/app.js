@@ -7,7 +7,7 @@ var app = new Vue({
       }),
 
     data: {
-        apiUrl:"http://192.168.2.250:3001/api",
+        apiUrl:"http://192.168.2.125:3001/api",
         //apiUrl:"http://localhost:3000/api",
         successSafe: false,
         successDelete: false,

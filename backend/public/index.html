@@ -81,7 +81,7 @@
               </v-tabs>
                 <v-container fluid>
                     <v-row dense>
-                        <v-col v-for="link in filteredLinks" :key="link._id"  lg="3" md="4" sm="6" xs="9">
+                        <v-col v-for="link in filteredLinks" :key="link._id" cols="12" lg="3" md="4" sm="6" xs="9">
                             <v-card :href="edit ? '' : link.href" :hover="true" target="_blank" :disabled="link.offline" height="100">
                                 <v-fab-transition>
                                     <v-btn

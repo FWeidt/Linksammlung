@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   next();
 })
 
-const database = new Datastore('database.db');
+const database = new Datastore('./data/database.db');
 database.loadDatabase();
 
 const path = '/api';
@@ -42,6 +42,7 @@ app.post(path, (request, response) => {
 
 app.patch(path, (request, response) => {
   const data = request.body;
+  console.log(data);
   database.update({"_id":data._id}, data, {});
   response.status(200).json({});
   });
