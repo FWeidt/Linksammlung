@@ -1,5 +1,14 @@
 const express = require('express');
-const Datastore = require('nedb');
+const {v4 : uuidv4} = require('uuid');
+const Redis = require("ioredis");
+
+const redis = new Redis({
+  port: 6379, // Redis port
+  host: "192.168.2.125", // Redis host
+  family: 4, // 4 (IPv4) or 6 (IPv6)
+  db: 0,
+});
+
 
 const app = express();
 app.listen(3000, () => console.log('listening at 3000'));
@@ -19,36 +28,44 @@ app.use((req, res, next) => {
   next();
 })
 
-const database = new Datastore('./data/database.db');
-database.loadDatabase();
-
 const path = '/api';
+const keyPrefix = 'links:'
 
-app.get(path, (request, response) => {
-  database.find({}, (err, data) => {
-    if (err) {
-      response.end();
-      return;
-    }
-    response.json(data);
-  });
+app.get(path, async (request, response) => {
+  let keys = await redis.keys(keyPrefix + '*')
+  let data = await redis.mget(keys)
+  response.send(formatRedisResponse(data))
 });
 
 app.post(path, (request, response) => {
+  let uuid = createUuidWithoutMinus()
   const data = request.body;
-  database.insert(data);
+  Object.assign(data, {_id:uuid})
+  redis.set(`${keyPrefix + uuid}:${data.title}`, JSON.stringify(data))
   response.status(200).json({});
 });
 
 app.patch(path, (request, response) => {
   const data = request.body;
-  console.log(data);
-  database.update({"_id":data._id}, data, {});
+  redis.set(`${keyPrefix + data._id}:${data.title}`, JSON.stringify(data))
   response.status(200).json({});
   });
 
-app.delete(path, (request, response) => {
+app.delete(path, async (request, response) => {
   const data = request.body;
-  database.remove(data);
+  let key = await redis.keys(`${keyPrefix + data._id}:*`)
+  redis.del(key[0])
   response.status(200).json({});
 });
+
+function formatRedisResponse(data) {
+  let res = []
+  data.forEach(elm=>{
+    res.push(JSON.parse(elm))
+  })
+  return res
+}
+
+function createUuidWithoutMinus(){
+  return uuidv4().replace(/-/g,'')
+}

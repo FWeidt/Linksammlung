@@ -7,8 +7,8 @@ var app = new Vue({
       }),
 
     data: {
-        apiUrl:"http://192.168.2.125:3001/api",
-        //apiUrl:"http://localhost:3000/api",
+        //apiUrl:"http://192.168.2.125:3001/api",
+        apiUrl:"http://localhost:3000/api",
         successSafe: false,
         successDelete: false,
         errorLoading: false,
@@ -95,6 +95,7 @@ var app = new Vue({
             axios.get(this.apiUrl)
                 .then(response => {
                     this.links = response.data
+                    console.log(this.links)
                 })
                 .catch(() => {
                     this.errorLoading = true
