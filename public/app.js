@@ -31,7 +31,7 @@ var app = new Vue({
             if(!c.includes(item.category) && item.category != "")
                 c.push(item.category)
            })
-           return c
+           return c.sort()
         },
             
     },
@@ -95,7 +95,6 @@ var app = new Vue({
             axios.get(this.apiUrl)
                 .then(response => {
                     this.links = response.data
-                    console.log(this.links)
                 })
                 .catch(() => {
                     this.errorLoading = true
@@ -129,7 +128,6 @@ var app = new Vue({
         },
         filterLinks: function(c){
             this.filteredLinks = this.links.filter((value)=>{
-
                 return value.category == c                
             })
         },

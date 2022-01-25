@@ -9,7 +9,6 @@ const redis = new Redis({
   db: 0,
 });
 
-
 const app = express();
 app.listen(3000, () => console.log('listening at 3000'));
 app.use(express.static('public'));
@@ -34,7 +33,7 @@ const keyPrefix = 'links:'
 app.get(path, async (request, response) => {
   let keys = await redis.keys(keyPrefix + '*')
   let data = await redis.mget(keys)
-  response.send(formatRedisResponse(data))
+  response.send(formatRedisResponse(data).sort(compareValues('title')))
 });
 
 app.post(path, (request, response) => {
@@ -49,7 +48,7 @@ app.patch(path, (request, response) => {
   const data = request.body;
   redis.set(`${keyPrefix + data._id}:${data.title}`, JSON.stringify(data))
   response.status(200).json({});
-  });
+});
 
 app.delete(path, async (request, response) => {
   const data = request.body;
@@ -68,4 +67,28 @@ function formatRedisResponse(data) {
 
 function createUuidWithoutMinus(){
   return uuidv4().replace(/-/g,'')
+}
+
+function compareValues(key, order = 'asc') {
+  return function innerSort(a, b) {
+    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+      // property doesn't exist on either object
+      return 0;
+    }
+
+    const varA = (typeof a[key] === 'string')
+      ? a[key].toUpperCase() : a[key];
+    const varB = (typeof b[key] === 'string')
+      ? b[key].toUpperCase() : b[key];
+
+    let comparison = 0;
+    if (varA > varB) {
+      comparison = 1;
+    } else if (varA < varB) {
+      comparison = -1;
+    }
+    return (
+      (order === 'desc') ? (comparison * -1) : comparison
+    );
+  };
 }
