@@ -2,6 +2,6 @@
     "name": "Links",
     "short_name": "Links",
     "lang": "de",
-    "start_url": "http://192.168.2.250/Links",
+    "start_url": "http://192.168.2.125:3001",
     "display": "standalone"
   }

@@ -36,17 +36,30 @@ app.get(path, async (request, response) => {
   response.send(formatRedisResponse(data).sort(compareValues('title')))
 });
 
-app.post(path, (request, response) => {
+app.post(path, async (request, response) => {
   let uuid = createUuidWithoutMinus()
   const data = request.body;
   Object.assign(data, {_id:uuid})
-  redis.set(`${keyPrefix + uuid}:${data.title}`, JSON.stringify(data))
+  let n = await redis.set(`${keyPrefix + uuid}:${data.title}`, JSON.stringify(data))
   response.status(200).json({});
 });
 
 app.patch(path, (request, response) => {
   const data = request.body;
   redis.set(`${keyPrefix + data._id}:${data.title}`, JSON.stringify(data))
+  response.status(200).json({});
+});
+
+app.patch(path + '/stats',async (request, response) => {
+  const data = request.body.data;
+  let loadetData = await redis.get(`${keyPrefix + data._id}:${data.title}`)
+  let loadetDataJson = JSON.parse(loadetData)
+  if(!loadetDataJson.hasOwnProperty('clicked')){
+    Object.assign(loadetDataJson, {clicked:1})
+  } else {
+    loadetDataJson.clicked = loadetDataJson.clicked + 1 
+  }
+  redis.set(`${keyPrefix + data._id}:${data.title}`, JSON.stringify(loadetDataJson))
   response.status(200).json({});
 });
 

@@ -89,6 +89,7 @@ var app = new Vue({
             this.add = false
             this.updateEvent = false
             this.clearData()
+            this.showAll()
         },
         getData: function () {
             this.loading = true
@@ -116,6 +117,11 @@ var app = new Vue({
                     this.successDelete = true
                 })
         },
+        sendStats: function (link) {
+            axios.patch(this.apiUrl + '/stats', {
+                data: { "_id":link._id, "title": link.title }
+            })
+        },
         preloadData: function (link) {
             this.add = true
             this.updateEvent = true
@@ -126,11 +132,19 @@ var app = new Vue({
             this.favicon = link.favicon
             this.category = link.category
         },
-        filterLinks: function(c){
-            this.filteredLinks = this.links.filter((value)=>{
-                return value.category == c                
-            })
+        filterLinksByCategory: function(c){
+                this.filteredLinks = this.links.filter((value)=>{
+                    return value.category == c                
+                })   
         },
+        filterLinksByScore: function(){
+            let filteredLinksWithScore = this.links.filter((a)=>{
+               return a.hasOwnProperty('clicked')
+            })
+            this.filteredLinks = [...filteredLinksWithScore].sort((a,b)=>{
+                    return b.clicked - a.clicked
+            })   
+    },
         showAll: function(){
             this.filteredLinks = this.links
         }
