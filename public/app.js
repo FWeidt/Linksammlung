@@ -144,7 +144,7 @@ var app = new Vue({
             this.filteredLinks = [...filteredLinksWithScore].sort((a,b)=>{
                     return b.clicked - a.clicked
             })   
-    },
+        },
         showAll: function(){
             this.filteredLinks = this.links
         }
@@ -160,12 +160,12 @@ var app = new Vue({
         successSafe: function () {
             setTimeout(() => {
                 this.successSafe = false
-            }, 2000)
+            }, 1000)
         },
         successDelete: function () {
             setTimeout(() => {
                 this.successDelete = false
-            }, 2000)
+            }, 1000)
         },
         errorLoading: function () {
             setTimeout(() => {

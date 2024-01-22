@@ -34,46 +34,28 @@
                 <v-alert type="success" :dismissible="true" :value="successDelete">Link erfolgreich gelöscht</v-alert>
                 <v-alert type="error" :value="errorLoading">Links konnten nicht vom Server abgerufen werden</v-alert>
                 <v-dialog v-model="add" max-width="600">
-                    <v-card>
-                        <v-card-title>Neuen Link hinzufügen oder bearbeiten</v-card-title>
-                        <v-form>
-                            <v-row class="justify-center">
-                                <v-col cols="9" sm="6">
-                                    <v-text-field v-model="title" label="Titel" :disabled="updateEvent" required>
-                                    </v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row class="justify-center">
-                                <v-col cols="9" sm="6">
-                                    <v-text-field v-model="href" label="link" required></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row class="justify-center">
-                                <v-col cols="9" sm="6">
-                                    <v-combobox
-                                    v-model="category"
-                                    :items="categories"
-                                    label="Kategorien"
-                                    ></v-combobox>
-                                </v-col>
-                            </v-row>
-                            <v-row class="justify-center">
-                                <v-col cols="9" sm="6">
-                                    <v-text-field v-model="desc" label="Beschreibung"></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row class="justify-center">
-                                <v-col cols="9" sm="6">
-                                    <v-text-field v-model="favicon" label="Favicon"></v-text-field>
-                                </v-col>
-                            </v-row>
-                            <v-row class="justify-center">
-                                <v-col cols="9" sm="6">
-                                    <v-btn class="mt-4" @click="sendData">Speichern</v-btn>
-                                </v-col>
-                            </v-row>
-                        </v-form>
-                    </v-card>
+                  <v-card>
+                    <v-toolbar color="primary">
+                      <v-toolbar-title class="white--text">Link Bearbeiten</v-toolbar-title>
+                      <v-spacer></v-spacer>
+                      <v-btn icon @click="add = false">
+                        <v-icon color="white">mdi-close</v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-card-text>
+                      <v-form>
+                        <v-text-field v-model="title" label="Titel" outlined required></v-text-field>
+                        <v-text-field v-model="href" label="Link" outlined required></v-text-field>
+                        <v-combobox v-model="category" :items="categories" label="Kategorien" outlined></v-combobox>
+                        <v-textarea v-model="desc" label="Beschreibung" outlined></v-textarea>
+                        <v-text-field v-model="favicon" label="Favicon" outlined></v-text-field>
+                      </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="primary" @click="sendData">Speichern</v-btn>
+                    </v-card-actions>
+                  </v-card>
                 </v-dialog>
               <v-tabs 
                 :centered="true"

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Links">
+    <meta name="apple-mobile-web-app-title" content="Links">
+    <meta name="msapplication-starturl" content="http://192.168.2.125:3001">
+    <title>Links</title>
+
+    <style>
+        /* Custom CSS for design enhancements */
+        body {
+            font-family: 'Montserrat', sans-serif; /* Verwenden Sie Montserrat als Schriftart */
+            background-color: #f4f4f4; /* Set your desired background color */
+        }
+
+        .v-toolbar-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .v-tabs {
+            background-color: #2196F3; /* Hintergrundfarbe der Tabs */
+        }
+
+        .v-tabs-slider {
+            background-color: #FFC107; /* Farbe des Slider-Highlights */
+        }
+
+        .v-tab {
+            font-weight: 600; /* Fett gedruckte Schrift für Tabs */
+        }
+        
+        .v-card {
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .v-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .v-card-title {
+            font-weight: 600;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .v-card-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+       
+        .v-footer {
+            background-color: #333; /* Set your desired footer background color */
+            color: #FFFFFF; /* Set your desired footer text color */
+            padding: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <v-app-bar app class="dark--text">
+                <v-toolbar-title>Linksammlung</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon class="ma-2" @click="toggle_add">
+                    <v-icon>mdi-plus</v-icon>
+                </v-btn>
+                <v-switch class="mt-2" v-model="edit"></v-switch>
+            </v-app-bar>
+            <v-progress-linear indeterminate :active="loading"></v-progress-linear>
+            <v-alert type="success" :dismissible="true" :value="successSafe">Link erfolgreich gespeichert</v-alert>
+            <v-alert type="success" :dismissible="true" :value="successDelete">Link erfolgreich gelöscht</v-alert>
+            <v-alert type="error" :value="errorLoading">Links konnten nicht vom Server abgerufen werden</v-alert>
+            <v-dialog v-model="add" max-width="600">
+                <v-card>
+                  <v-app-bar app color="primary">
+                    <v-toolbar-title class="white--text">Link Bearbeiten</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon @click="add = false">
+                      <v-icon color="white">mdi-close</v-icon>
+                    </v-btn>
+                  </v-app-bar>
+                  <v-card-text>
+                    <v-form>
+                      <v-text-field v-model="title" label="Titel" outlined required></v-text-field>
+                      <v-text-field v-model="href" label="Link" outlined required></v-text-field>
+                      <v-combobox v-model="category" :items="categories" label="Kategorien" outlined></v-combobox>
+                      <v-textarea v-model="desc" label="Beschreibung" outlined></v-textarea>
+                      <v-text-field v-model="favicon" label="Favicon" outlined></v-text-field>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="sendData">Speichern</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            <v-main>
+                <v-tabs
+                    centered
+                    next-icon="mdi-arrow-right-bold"
+                    prev-icon="mdi-arrow-left-bold"
+                    show-arrows
+                >
+                    <v-tab @click="showAll">Alle</v-tab>
+                    <v-tab @click="filterLinksByScore">Sortiert</v-tab>
+                    <v-tab v-for="item in categories" :key="item" @click="filterLinksByCategory(item)">{{ item }}</v-tab>
+                </v-tabs>
+                <v-container fluid>
+                    <v-row dense>
+                        <v-col v-for="link in filteredLinks" :key="link._id" cols="12" lg="3" md="4" sm="6" xs="9">
+                            <v-card @click="sendStats(link)" :href="edit ? '' : link.href" :hover="true" target="_blank" :disabled="link.offline" height="100">
+                                <v-fab-transition>
+                                    <v-btn
+                                        @click="deleteData(link)"
+                                        v-show="edit"
+                                        color="red"
+                                        fab
+                                        small
+                                        absolute
+                                    >
+                                        <v-icon>mdi-delete</v-icon>
+                                    </v-btn>
+                                </v-fab-transition>
+                                <v-fab-transition>
+                                    <v-btn
+                                        @click="preloadData(link)"
+                                        v-show="edit"
+                                        color="blue"
+                                        fab
+                                        small
+                                        absolute
+                                        right
+                                    >
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                </v-fab-transition>
+                                <v-row dense align="center">
+                                    <v-col cols="9" align-self="start">
+                                        <v-card-title class="text-caption font-weight-bold text--primary" v-text="link.title"></v-card-title>
+                                        <v-card-subtitle class="text-caption text--secondary" v-text="link.desc"></v-card-subtitle>
+                                    </v-col>
+                                    <v-col cols="3" align-self="end">
+                                        <v-img
+                                            :src="link.favicon"
+                                            lazy-src="./img/placeholder.jpg"
+
+                                        ></v-img>
+                                    </v-col>
+                                </v-row>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-main>
+            <v-footer app>
+                FWeidt
+                <v-spacer></v-spacer>
+                Aktuell gespeicherte Links: {{ links.length }}
+                <v-spacer></v-spacer>
+                <div>&copy; {{ new Date().getFullYear() }}</div>
+            </v-footer>
+        </v-app>
+    </div>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vuetify.min.js"></script>
+    <script src="./lib/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
